@@ -1,4 +1,8 @@
 class Battle {
+    static DEFAULT_CHARACTER_STATS = {
+        damage: 0,
+        kills: 0
+    }
     constructor(heroes, monsters) {
         this.heroes = heroes
         this.monsters = monsters
@@ -7,8 +11,18 @@ class Battle {
             heroDamage: 0,
             heroesKilled: 0,
             monsterDamage: 0,
-            monstersKilled: 0
+            monstersKilled: 0,
+            byHero: {},
+            byMonster: {}
         }
+
+        heroes.forEach(hero => {
+            this.stats.byHero[hero.uuid] = {...Battle.DEFAULT_CHARACTER_STATS}
+        })
+
+        monsters.forEach(monster => {
+            this.stats.byMonster[monster.uuid] = {...Battle.DEFAULT_CHARACTER_STATS}
+        })
     }
 
     fight() {
@@ -18,9 +32,16 @@ class Battle {
 
         while (this.heroesAreAlive() && this.monstersAreAlive()) {
             // TODO: should alternate attacks between party members, not always the first character
-            const heroAttackResults = this.heroes[0].attack(this.getAttackTarget(this.monsters))
-            const monsterAttackResults = this.monsters[0].attack(this.getAttackTarget(this.heroes))
-            this.appendAttackStats(heroAttackResults, monsterAttackResults)
+            const heroAttack = this.getFirstAliveHero().attack(this.getAttackTarget(this.monsters))
+            let monsterAttack = null
+
+            // check if monsters are still alive to attack back. A hero's attack can kill
+            // a monster before it has the chance to retaliate
+            if (this.monstersAreAlive()) {
+                monsterAttack = this.getFirstAliveMonster().attack(this.getAttackTarget(this.heroes))
+            }
+
+            this.appendAttackStats(heroAttack, monsterAttack)
         }
 
         this.result = {
@@ -50,12 +71,30 @@ class Battle {
         }
     }
 
-    appendAttackStats(heroAttackResults, monsterAttackResults) {
-        this.stats.heroDamage += heroAttackResults.damage
-        if (heroAttackResults.targetKilled) this.stats.monstersKilled += 1
+    getFirstAliveHero() {
+        return this.heroes.filter(hero => hero.isAlive())[0]
+    }
 
-        this.stats.monsterDamage += monsterAttackResults.damage
-        if (monsterAttackResults.targetKilled) this.stats.heroesKilled += 1
+    getFirstAliveMonster() {
+        return this.monsters.filter(monster => monster.isAlive())[0]
+    }
+
+    appendAttackStats(heroAttack, monsterAttack = null) {
+        this.stats.heroDamage += heroAttack.damage
+        this.stats.byHero[heroAttack.attacker.uuid].damage += heroAttack.damage
+        if (heroAttack.targetKilled) {
+            this.stats.monstersKilled += 1
+            this.stats.byHero[heroAttack.attacker.uuid].kills += 1
+        }
+
+        if (monsterAttack) {
+            this.stats.monsterDamage += monsterAttack.damage
+            this.stats.byMonster[monsterAttack.attacker.uuid].damage += monsterAttack.damage
+            if (monsterAttack.targetKilled) {
+                this.stats.heroesKilled += 1
+                this.stats.byMonster[monsterAttack.attacker.uuid].kills += 1
+            }
+        }
     }
 }
 

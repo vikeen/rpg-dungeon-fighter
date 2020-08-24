@@ -16,7 +16,9 @@ class BaseCharacter {
 
         return {
             damage: this.damage,
-            targetKilled: target.isAlive() === false
+            targetKilled: target.isAlive() === false,
+            attacker: this,
+            target
         }
     }
 
@@ -33,6 +35,7 @@ class BaseCharacter {
     forceSetHP(hp) {
         this.maxHp = hp
         this.currentHp = hp
+        return this
     }
 }
 

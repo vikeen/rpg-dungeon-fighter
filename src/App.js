@@ -7,6 +7,7 @@ import Goblin from "./monsters/Goblin/Goblin";
 import Knight from "./heroes/Knight/Knight";
 import Dungeon from "./lib/Dungeon";
 import DungeonRoom from "./lib/DungeonRoom";
+import Mage from "./heroes/Mage/Mage";
 
 const styles = {
     container: {
@@ -21,7 +22,8 @@ const App = () => {
     const [start, setStart] = useState(false)
 
     const heroes = [
-        new Knight()
+        new Knight(),
+        new Mage(),
     ]
     const dungeon = new Dungeon([
         new DungeonRoom([new Goblin()]),

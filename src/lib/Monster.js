@@ -46,6 +46,22 @@ class Monster extends BaseCharacter {
             </div>
         )
     }
+
+    renderThumbnail(size = 40) {
+        return (
+            <img src={this.image}
+                 key={this.uuid}
+                 style={{
+                     width: size,
+                     height: size,
+                     margin: -5,
+                     transform: 'scaleX(-1)',
+                     opacity: this.isAlive() ? 1 : 0.5
+                 }}
+                 alt={this.name}
+            />
+        )
+    }
 }
 
 export default Monster

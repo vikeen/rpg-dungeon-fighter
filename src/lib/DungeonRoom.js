@@ -32,28 +32,36 @@ class DungeonRoom {
     }
 
     renderThumbnail() {
+        let roomIcon = null
+
         if (this.battleStatus === "cleared") {
-            return (
-                <div key={this.uuid}
-                     className="bg-success text-white"
-                     style={styles.thumbnail}
-                ><i className="ra ra-2x ra-crown" /></div>
+            roomIcon = (
+                <div key={this.uuid} className="bg-success text-white" style={styles.thumbnail}>
+                    <i className="ra ra-2x ra-crown" />
+                </div>
             )
         } else if (this.battleStatus === "died") {
-            return (
-                <div key={this.uuid}
-                     className="bg-danger text-white"
-                     style={styles.thumbnail}
-                ><i className="ra ra-2x ra-broken-skull" /></div>
+            roomIcon = (
+                <div key={this.uuid} className="bg-danger text-white" style={styles.thumbnail}>
+                    <i className="ra ra-2x ra-broken-skull" />
+                </div>
             )
         } else {
-            return (
-                <div key={this.uuid}
-                     className="bg-secondary text-light"
-                     style={styles.thumbnail}
-                ><i className="ra ra-2x ra-monster-skull" /></div>
+            roomIcon = (
+                <div key={this.uuid} className="bg-secondary text-light" style={styles.thumbnail}>
+                    <i className="ra ra-2x ra-monster-skull" />
+                </div>
             )
         }
+
+        return (
+            <div key={this.uuid}>
+                {roomIcon}
+                <div className="d-flex flex-row align-items-center justify-content-center">
+                    {this.monsters.map(monster => monster.renderThumbnail(30))}
+                </div>
+            </div>
+        )
     }
 }
 
