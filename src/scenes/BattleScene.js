@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import Battle from './Battle'
+import Battle from '../lib/Battle'
 
 const BattleScene = ({heroes, monsters, start}) => {
     const [battling, setBattling] = useState(start)
