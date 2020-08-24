@@ -14,8 +14,13 @@ class Dungeon {
     embark(heroes) {
         this.heroes = heroes
 
-        const battles = this.rooms.map((room) => room.fightBattle(this.heroes))
-        this.collectStatsFromBattles(battles)
+        const clearedBattles = this.rooms.map((room) => {
+            if (this.heroesAreAlive()) {
+                return room.fightBattle(this.heroes)
+            }
+        }).filter(Boolean)
+
+        this.collectStatsFromBattles(clearedBattles)
     }
 
     collectStatsFromBattles(battles) {
@@ -34,6 +39,10 @@ class Dungeon {
             this.stats.monstersKilled += b.stats.monstersKilled
         })
         this.stats.byRoom = battles.map(b => b.stats)
+    }
+
+    heroesAreAlive() {
+        return this.heroes.every(h => h.isAlive())
     }
 }
 

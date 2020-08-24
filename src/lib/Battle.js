@@ -17,6 +17,7 @@ class Battle {
         console.debug("Monsters:", this.monsters)
 
         while (this.heroesAreAlive() && this.monstersAreAlive()) {
+            // TODO: should alternate attacks between party members, not always the first character
             const heroAttackResults = this.heroes[0].attack(this.getAttackTarget(this.monsters))
             const monsterAttackResults = this.monsters[0].attack(this.getAttackTarget(this.heroes))
             this.appendAttackStats(heroAttackResults, monsterAttackResults)
@@ -28,7 +29,7 @@ class Battle {
             status: this.heroesAreAlive() ? "victory" : "defeat"
         }
 
-        console.debug(this.result)
+        console.debug("Battle results:", this.result)
     }
 
     heroesAreAlive() {

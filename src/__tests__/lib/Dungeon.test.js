@@ -69,13 +69,6 @@ test('embark on a dungeon where the heroes are slowly worn down and die', () => 
             heroesKilled: 1,
             monsterDamage: 20,
             monstersKilled: 2
-        },
-        {
-            // Heroes die before they get to the final room
-            heroDamage: 0,
-            heroesKilled: 0,
-            monsterDamage: 0,
-            monstersKilled: 0
         }
     ])
     expect(dungeon.results).toEqual(expect.objectContaining({
@@ -112,4 +105,21 @@ test('collect stats for each dungeon room battle and the dungeon total', () => {
         monsterDamage: 16,
         monstersKilled: 2,
     }])
+});
+
+test('should marks rooms after heroes death as unexplored', () => {
+    const heroes = [new Knight()]
+    const rooms = [
+        new DungeonRoom([new Goblin()]),
+        new DungeonRoom([new DragonKing()]), // dies here
+        new DungeonRoom([new Goblin()]),
+    ]
+
+    const dungeon = new Dungeon(rooms)
+
+    dungeon.embark(heroes)
+
+    expect(rooms[0].battleStatus).toEqual("cleared")
+    expect(rooms[1].battleStatus).toEqual("died")
+    expect(rooms[2].battleStatus).toEqual("unexplored")
 });

@@ -10,7 +10,7 @@ const styles = {
     }
 }
 
-class Monster extends BaseCharacter{
+class Monster extends BaseCharacter {
     constructor() {
         super()
         this.imageSize = 100
