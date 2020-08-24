@@ -29,6 +29,11 @@ class BaseCharacter {
         }
 
     }
+
+    forceSetHP(hp) {
+        this.maxHp = hp
+        this.currentHp = hp
+    }
 }
 
 export default BaseCharacter
