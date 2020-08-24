@@ -13,11 +13,20 @@ class BaseCharacter {
     attack = (target) => {
         console.debug(`${this.name} attacks ${target.name} for ${this.damage} damage`)
         target.sufferAttack(this.damage)
+
+        return {
+            damage: this.damage,
+            targetKilled: target.isAlive() === false
+        }
     }
 
     sufferAttack = (damage) => {
         this.currentHp = this.currentHp - damage
         console.debug(`${this.name} suffers ${damage} damage (${this.currentHp} remaining)`)
+
+        if (this.currentHp <= 0) {
+            console.debug(`${this.name} has died`)
+        }
 
     }
 }

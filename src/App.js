@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import "bootstrap/dist/css/bootstrap.min.css"
 import "rpg-awesome/css/rpg-awesome.min.css"
 
-import BattleScene from "./scenes/Battle/BattleScene";
+import BattleScene from "./scenes/BattleScene";
 import Goblin from "./monsters/Goblin/Goblin";
 import Knight from "./heroes/Knight/Knight";
 
