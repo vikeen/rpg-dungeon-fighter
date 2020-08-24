@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import Battle from '../lib/Battle'
+import DungeonBattle from '../lib/Battle'
 
 const BattleScene = ({heroes, monsters, start}) => {
     const [battling, setBattling] = useState(start)
@@ -7,7 +7,7 @@ const BattleScene = ({heroes, monsters, start}) => {
 
     useEffect(() => {
         if (start && !battling) {
-            const battle = new Battle(heroes, monsters)
+            const battle = new DungeonBattle(heroes, monsters)
             setBattling(true)
             battle.fight()
             setBattling(false)

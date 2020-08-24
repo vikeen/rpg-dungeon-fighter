@@ -1,4 +1,4 @@
-import Battle from "../../lib/Battle";
+import DungeonBattle from "../../lib/Battle";
 import Knight from "../../heroes/Knight/Knight";
 import Goblin from "../../monsters/Goblin/Goblin";
 import DragonKing from "../../monsters/Dragon King/DragonKing";
@@ -6,7 +6,7 @@ import DragonKing from "../../monsters/Dragon King/DragonKing";
 test('fight a battle where the heroes are victorious', () => {
     const heroes = [new Knight()]
     const monsters = [new Goblin()]
-    const battle = new Battle(heroes, monsters)
+    const battle = new DungeonBattle(heroes, monsters)
 
     battle.fight()
 
@@ -20,7 +20,7 @@ test('fight a battle where the heroes are victorious', () => {
 test('fight a battle where the monsters are victorious', () => {
     const heroes = [new Knight()]
     const monsters = [new DragonKing()]
-    const battle = new Battle(heroes, monsters)
+    const battle = new DungeonBattle(heroes, monsters)
 
     battle.fight()
 
@@ -34,7 +34,7 @@ test('fight a battle where the monsters are victorious', () => {
 test('fight a battle with multiple monsters', () => {
     const heroes = [new Knight()]
     const monsters = [new Goblin(), new Goblin()]
-    const battle = new Battle(heroes, monsters)
+    const battle = new DungeonBattle(heroes, monsters)
 
     battle.fight()
 
@@ -48,7 +48,7 @@ test('fight a battle with multiple monsters', () => {
 test('fight a battle with multiple heroes', () => {
     const heroes = [new Knight(), new Knight()]
     const monsters = [new Goblin()]
-    const battle = new Battle(heroes, monsters)
+    const battle = new DungeonBattle(heroes, monsters)
 
     battle.fight()
 
@@ -62,7 +62,7 @@ test('fight a battle with multiple heroes', () => {
 test('fight a battle with multiple heroes and multiple monsters', () => {
     const heroes = [new Knight(), new Knight()]
     const monsters = [new Goblin(), new Goblin(), new Goblin(), new Goblin()]
-    const battle = new Battle(heroes, monsters)
+    const battle = new DungeonBattle(heroes, monsters)
 
     battle.fight()
 
@@ -73,10 +73,10 @@ test('fight a battle with multiple heroes and multiple monsters', () => {
     }))
 });
 
-test('fight a battle and keep track of total damage stats', () => {
+test('fight a battle and keep track of stats', () => {
     const heroes = [new Knight()]
     const monsters = [new Goblin(), new Goblin()]
-    const battle = new Battle(heroes, monsters)
+    const battle = new DungeonBattle(heroes, monsters)
 
     battle.fight()
 
