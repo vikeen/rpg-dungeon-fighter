@@ -65,7 +65,7 @@ class DungeonRoom {
             <div key={this.uuid}>
                 {roomIcon}
                 <div className="d-flex flex-row align-items-center justify-content-center">
-                    {this.monsters.map(monster => monster.renderThumbnail(this.isBoss ? 50 : 30))}
+                    {this.monsters.map(monster => monster.renderThumbnail(this.isBoss ? 40 : 25))}
                 </div>
             </div>
         )

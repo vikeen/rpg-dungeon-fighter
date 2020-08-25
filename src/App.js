@@ -21,6 +21,8 @@ const styles = {
     },
     sidebar: {
         background: "#f6f6f6",
+        width: 150,
+        padding: 10,
         height
     },
     content: {
@@ -87,13 +89,16 @@ const App = () => {
                 <span className="navbar-brand mb-0 h1">RPG Workouts</span>
             </nav>
             <div className="d-flex flex-row mt-5">
-                <div className="d-flex flex-column p-2" style={styles.sidebar}>
-                    <button className="btn btn-outline-secondary btn-block" onClick={handleEmbarkOnDungeonClick}>
-                        <i className="fas fa-play"></i> Start
-                    </button>
-                    <button className="btn btn-outline-secondary btn-block" onClick={handleResetClick}>
-                        <i className="fas fa-redo"></i> Reset
-                    </button>
+                <div style={styles.sidebar}>
+                    <h4 className="text-center">Controls</h4>
+                    <div className="d-flex flex-column">
+                        <button className="btn btn-outline-secondary btn-block" onClick={handleEmbarkOnDungeonClick}>
+                            <i className="fas fa-play"></i> Start
+                        </button>
+                        <button className="btn btn-outline-secondary btn-block" onClick={handleResetClick}>
+                            <i className="fas fa-redo"></i> Reset
+                        </button>
+                    </div>
                 </div>
                 <div className="flex-grow-1 d-flex justify-content-center border">
                     <div style={styles.content}>
