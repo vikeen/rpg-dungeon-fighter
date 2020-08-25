@@ -88,8 +88,8 @@ class Dungeon {
         this.rooms.forEach(r => r.setLogger(this.logger))
     }
 
-    on(eventKey, cb) {
-        const listener = this.emitter.on(eventKey, cb)
+    on(...args) {
+        const listener = this.emitter.on(...args)
         this.eventListeners.push(listener)
     }
 
