@@ -8,6 +8,7 @@ import Knight from "./heroes/Knight/Knight";
 import Dungeon from "./lib/Dungeon";
 import DungeonRoom from "./lib/DungeonRoom";
 import Mage from "./heroes/Mage/Mage";
+import GoblinElite from "./monsters/Goblin Elite/GoblinElite";
 
 const styles = {
     container: {
@@ -29,9 +30,10 @@ const App = () => {
         new DungeonRoom([new Goblin()]),
         new DungeonRoom([new Goblin(), new Goblin()]),
         new DungeonRoom([new Goblin(), new Goblin()]),
-        new DungeonRoom([new Goblin(), new Goblin()]),
-        new DungeonRoom([new Goblin(), new Goblin()]),
-        new DungeonRoom([new Goblin(), new Goblin()]),
+        new DungeonRoom([new Goblin(), new Goblin(), new Goblin()]),
+        new DungeonRoom([new GoblinElite()], {
+            isBoss: true
+        }),
     ])
 
     const handleEmbarkOnDungeonClick = () => {

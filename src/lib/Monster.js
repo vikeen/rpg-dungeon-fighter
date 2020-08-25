@@ -13,7 +13,7 @@ const styles = {
 class Monster extends BaseCharacter {
     constructor() {
         super()
-        this.imageSize = 100
+        this.imageWidth = 100
     }
 
     render() {
@@ -21,8 +21,7 @@ class Monster extends BaseCharacter {
             <div className="d-flex flex-column align-items-center" key={this.uuid}>
                 <img src={this.image}
                      style={{
-                         width: this.imageSize,
-                         height: this.imageSize,
+                         width: this.imageWidth,
                          margin: 10,
                          transform: 'scaleX(-1)',
                      }}
@@ -52,7 +51,6 @@ class Monster extends BaseCharacter {
             <img src={this.image}
                  key={this.uuid}
                  style={{
-                     width: size,
                      height: size,
                      margin: -5,
                      transform: 'scaleX(-1)',

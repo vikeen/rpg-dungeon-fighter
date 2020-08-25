@@ -16,10 +16,11 @@ const styles = {
 }
 
 class DungeonRoom {
-    constructor(monsters) {
+    constructor(monsters, options = {}) {
         this.uuid = uuidv4()
         this.monsters = monsters
         this.battleStatus = "unexplored"
+        this.isBoss = options.isBoss === true
     }
 
     fightBattle(heroes) {
@@ -58,7 +59,7 @@ class DungeonRoom {
             <div key={this.uuid}>
                 {roomIcon}
                 <div className="d-flex flex-row align-items-center justify-content-center">
-                    {this.monsters.map(monster => monster.renderThumbnail(30))}
+                    {this.monsters.map(monster => monster.renderThumbnail(this.isBoss ? 50 : 30))}
                 </div>
             </div>
         )
