@@ -9,10 +9,13 @@ const styles = {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        width: 45,
-        height: 45,
-        borderRadius: 45,
+        width: 35,
+        height: 35,
+        borderRadius: 35,
         margin: 20
+    },
+    icon: {
+        fontSize: 30
     }
 }
 
@@ -41,19 +44,19 @@ class DungeonRoom {
         if (this.battleStatus === "cleared") {
             roomIcon = (
                 <div key={this.uuid} className="bg-success text-white" style={styles.thumbnail}>
-                    <i className="ra ra-2x ra-crown" />
+                    <i style={styles.icon} className="ra ra-crown" />
                 </div>
             )
         } else if (this.battleStatus === "died") {
             roomIcon = (
                 <div key={this.uuid} className="bg-danger text-white" style={styles.thumbnail}>
-                    <i className="ra ra-2x ra-broken-skull" />
+                    <i style={styles.icon} className="ra ra-broken-skull" />
                 </div>
             )
         } else {
             roomIcon = (
                 <div key={this.uuid} className="bg-secondary text-light" style={styles.thumbnail}>
-                    <i className="fas fa-question" />
+                    <i style={{...styles.icon, fontSize: 25}} className="fas fa-question" />
                 </div>
             )
         }

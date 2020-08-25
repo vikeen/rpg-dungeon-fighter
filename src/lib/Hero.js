@@ -13,17 +13,16 @@ const styles = {
 class Hero extends BaseCharacter {
     constructor() {
         super()
-        this.imageSize = 150
+        this.imageSize = 100
     }
 
     render() {
         return (
-            <div className="d-flex flex-column align-items-center" key={this.uuid}>
+            <div className="d-flex flex-column align-items-center m-1" key={this.uuid}>
                 <img src={this.image}
                      style={{
                          width: this.imageSize,
                          height: this.imageSize,
-                         margin: 10,
                      }}
                      alt={this.name}
                 />

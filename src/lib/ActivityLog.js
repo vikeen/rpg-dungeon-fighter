@@ -34,13 +34,9 @@ class ActivityLog {
     render() {
         return (
             <code>
-                {this.logs.map(l => {
-                    return (
-                        <div key={l.uuid}>
-                            <span>{l.message}</span><br/>
-                        </div>
-                    )
-                })}
+                <ol>
+                    {this.logs.map(l => <li key={l.uuid}>{l.message}</li>)}
+                </ol>
             </code>
         )
     }

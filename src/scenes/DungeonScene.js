@@ -18,14 +18,7 @@ const DungeonScene = ({heroes, dungeon, start}) => {
 
     return (
         <div>
-            {results && (
-                <div className="alert alert-info">
-                    <div className="text-center text-uppercase">
-                        <h2>{results.status}</h2>
-                    </div>
-                </div>
-            )}
-            <div className="d-flex flex-row align-items-start">
+            <div className="d-flex flex-row justify-content-center">
                 {rooms.map(room => room.renderThumbnail())}
             </div>
             <div className="d-flex flex-row justify-content-between align-items-center h-100">
