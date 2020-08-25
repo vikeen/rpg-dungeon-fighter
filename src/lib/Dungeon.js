@@ -48,8 +48,8 @@ class Dungeon {
             }
         }).filter(Boolean)
 
-        this.collectStatsFromBattles(clearedBattles)
         this.collectRewardsFromBattle(clearedBattles)
+        this.collectStatsFromBattles(clearedBattles)
         this.emitter.emit('end')
         this.teardown()
     }
@@ -80,6 +80,9 @@ class Dungeon {
             })
         })
         this.stats.byRoom = battles.map(b => b.stats)
+
+        this.logger.debug("Dungeon Stats:")
+        this.logger.debug("\tBy Hero:", this.stats.byHero)
     }
 
     collectRewardsFromBattle(battle) {
@@ -87,6 +90,8 @@ class Dungeon {
             this.rewards.xp += battle.rewards.xp
             this.rewards.gold += battle.rewards.gold
         })
+
+        this.logger.debug("Dungeon Rewards:", this.rewards)
     }
 
     heroesAreAlive() {

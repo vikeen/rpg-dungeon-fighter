@@ -89,7 +89,7 @@ class Battle {
         if (heroAttack.targetKilled) {
             this.stats.monstersKilled += 1
             this.stats.byHero[heroAttack.attacker.uuid].kills += 1
-            this.addRewards(heroAttack.target.rewards)
+            this.addRewards(heroAttack.target.getRewards())
         }
 
         if (monsterAttack) {

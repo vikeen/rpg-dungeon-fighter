@@ -12,6 +12,13 @@ class GoblinElite extends Monster {
         this.damage = 8
         this.armor = 2
     }
+
+    getRewards() {
+        return {
+            xp: 50,
+            gold: 16
+        }
+    }
 }
 
 export default GoblinElite

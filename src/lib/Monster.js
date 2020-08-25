@@ -63,6 +63,13 @@ class Monster extends BaseCharacter {
         )
     }
 
+    getRewards() {
+        return this.rewards ? this.rewards : {
+            gold: 0,
+            xp: 0
+        }
+    }
+
     setGoldReward(gold = 0) {
         this.rewards.gold = gold
         return this
