@@ -91,6 +91,21 @@ test('fight a battle and keep track of stats', () => {
     }))
 });
 
+test('fight a battle and earn rewards', () => {
+    const heroes = [new Knight()]
+    const goblin1 = new Goblin().setGoldReward(10).setXpReward(40)
+    const goblin2 = new Goblin().setGoldReward(10).setXpReward(40)
+    const monsters = [goblin1, goblin2]
+    const battle = new DungeonBattle(heroes, monsters)
+
+    battle.fight()
+
+    expect(battle.rewards).toEqual(expect.objectContaining({
+        xp: 80,
+        gold: 20
+    }))
+});
+
 test('fight a battle and breakdown damage totals by hero and monster', () => {
     const injuredKnight = new Knight().forceSetHP(1)
     const mage = new Mage()

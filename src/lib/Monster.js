@@ -14,6 +14,7 @@ class Monster extends BaseCharacter {
     constructor() {
         super()
         this.imageWidth = 100
+        this.rewards = {gold: 0, xp: 0}
     }
 
     render() {
@@ -60,6 +61,16 @@ class Monster extends BaseCharacter {
                  alt={this.name}
             />
         )
+    }
+
+    setGoldReward(gold = 0) {
+        this.rewards.gold = gold
+        return this
+    }
+
+    setXpReward(xp = 0) {
+        this.rewards.xp = xp
+        return this
     }
 }
 

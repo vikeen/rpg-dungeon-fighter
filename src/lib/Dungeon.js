@@ -23,6 +23,10 @@ class Dungeon {
             byMonster: {},
             byRoom: []
         }
+        this.rewards = {
+            xp: 0,
+            gold: 0
+        }
 
         this.heroes.forEach(hero => {
             this.stats.byHero[hero.uuid] = {...Dungeon.DEFAULT_CHARACTER_STATS}
@@ -45,6 +49,7 @@ class Dungeon {
         }).filter(Boolean)
 
         this.collectStatsFromBattles(clearedBattles)
+        this.collectRewardsFromBattle(clearedBattles)
         this.emitter.emit('end')
         this.teardown()
     }
@@ -75,6 +80,13 @@ class Dungeon {
             })
         })
         this.stats.byRoom = battles.map(b => b.stats)
+    }
+
+    collectRewardsFromBattle(battle) {
+        battle.forEach(battle => {
+            this.rewards.xp += battle.rewards.xp
+            this.rewards.gold += battle.rewards.gold
+        })
     }
 
     heroesAreAlive() {

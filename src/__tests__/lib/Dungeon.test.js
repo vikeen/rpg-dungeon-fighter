@@ -167,6 +167,25 @@ test('breakdown damage totals by hero and monster', () => {
     })
 });
 
+test("collect rewards from a dungeon run", () => {
+    const heroes = [new Knight()]
+    const goblin1 = new Goblin().setGoldReward(30).setXpReward(100)
+    const goblin2 = new Goblin().setGoldReward(30).setXpReward(100)
+    const goblin3 = new Goblin().setGoldReward(30).setXpReward(100)
+    const rooms = [
+        new DungeonRoom([goblin1]),
+        new DungeonRoom([goblin2, goblin3]),
+    ]
+    const dungeon = new Dungeon(heroes, rooms)
+
+    dungeon.embark()
+
+    expect(dungeon.rewards).toEqual({
+        gold: 90,
+        xp: 300
+    })
+})
+
 test('should marks rooms after heroes death as unexplored', () => {
     const heroes = [new Knight()]
     const rooms = [

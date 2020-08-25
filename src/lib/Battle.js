@@ -18,6 +18,7 @@ class Battle {
             byMonster: {}
         }
         this.logger = new ActivityLog()
+        this.rewards = {gold: 0, xp: 0}
 
         heroes.forEach(hero => {
             this.stats.byHero[hero.uuid] = {...Battle.DEFAULT_CHARACTER_STATS}
@@ -88,6 +89,7 @@ class Battle {
         if (heroAttack.targetKilled) {
             this.stats.monstersKilled += 1
             this.stats.byHero[heroAttack.attacker.uuid].kills += 1
+            this.addRewards(heroAttack.target.rewards)
         }
 
         if (monsterAttack) {
@@ -97,6 +99,16 @@ class Battle {
                 this.stats.heroesKilled += 1
                 this.stats.byMonster[monsterAttack.attacker.uuid].kills += 1
             }
+        }
+    }
+
+    addRewards(rewards = {}) {
+        if (rewards.gold) {
+            this.rewards.gold += rewards.gold
+        }
+
+        if (rewards.xp) {
+            this.rewards.xp += rewards.xp
         }
     }
 
