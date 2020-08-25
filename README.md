@@ -9,7 +9,7 @@
 1. Add hero levels and a level-up system
 1. ~~Add death icons for monsters who have been killed~~
 1. ~~Bug: The first character attacks for their team, even if dead~~
-1. Add combat log 
+1. ~~Add combat log~~ 
 
 ## Citations and References
 - Heroes: ...
