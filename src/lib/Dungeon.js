@@ -8,6 +8,10 @@ class Dungeon {
         damage: 0,
         kills: 0
     }
+    static DEFAULT_REWARDS = {
+        xp: 0,
+        gold: 0
+    }
 
     constructor(heroes, rooms) {
         this.rooms = rooms
@@ -23,10 +27,7 @@ class Dungeon {
             byMonster: {},
             byRoom: []
         }
-        this.rewards = {
-            xp: 0,
-            gold: 0
-        }
+        this.rewards = {...Dungeon.DEFAULT_REWARDS}
 
         this.heroes.forEach(hero => {
             this.stats.byHero[hero.uuid] = {...Dungeon.DEFAULT_CHARACTER_STATS}
@@ -98,6 +99,10 @@ class Dungeon {
         return this.heroes.some(h => h.isAlive())
     }
 
+    getRewards() {
+        return this.rewards ? this.rewards : {...Dungeon.DEFAULT_REWARDS}
+    }
+
     initActivityLogger() {
         this.logger = new ActivityLog()
         this.heroes.forEach(h => h.setLogger(this.logger))
@@ -111,7 +116,11 @@ class Dungeon {
     }
 
     teardown() {
-        this.eventListeners.forEach(eventListener => eventListener())
+        this.eventListeners.forEach(eventListener => {
+            if (eventListener) {
+                eventListener()
+            }
+        })
     }
 }
 

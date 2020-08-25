@@ -13,7 +13,7 @@ const styles = {
 class Hero extends BaseCharacter {
     constructor() {
         super()
-        this.imageSize = 200
+        this.imageSize = 150
     }
 
     render() {

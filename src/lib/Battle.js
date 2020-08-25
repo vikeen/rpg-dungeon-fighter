@@ -110,6 +110,8 @@ class Battle {
         if (rewards.xp) {
             this.rewards.xp += rewards.xp
         }
+
+        this.logger.debug("Battle rewards:", rewards)
     }
 
     setLogger(logger) {

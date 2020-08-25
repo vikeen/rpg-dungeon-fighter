@@ -11,13 +11,9 @@ class GoblinElite extends Monster {
         this.currentHp = 18
         this.damage = 8
         this.armor = 2
-    }
 
-    getRewards() {
-        return {
-            xp: 50,
-            gold: 16
-        }
+        this.setXpReward(50)
+        this.setGoldReward(16)
     }
 }
 

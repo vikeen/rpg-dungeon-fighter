@@ -180,7 +180,7 @@ test("collect rewards from a dungeon run", () => {
 
     dungeon.embark()
 
-    expect(dungeon.rewards).toEqual({
+    expect(dungeon.getRewards()).toEqual({
         gold: 90,
         xp: 300
     })

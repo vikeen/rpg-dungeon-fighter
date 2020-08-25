@@ -53,7 +53,7 @@ class DungeonRoom {
         } else {
             roomIcon = (
                 <div key={this.uuid} className="bg-secondary text-light" style={styles.thumbnail}>
-                    <i className="ra ra-2x ra-monster-skull" />
+                    <i className="fas fa-question" />
                 </div>
             )
         }
