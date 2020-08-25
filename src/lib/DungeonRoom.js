@@ -2,6 +2,7 @@ import React from 'react'
 import {v4 as uuidv4} from "uuid";
 
 import Battle from "./Battle";
+import ActivityLog from "./ActivityLog";
 
 const styles = {
     thumbnail : {
@@ -21,10 +22,12 @@ class DungeonRoom {
         this.monsters = monsters
         this.battleStatus = "unexplored"
         this.isBoss = options.isBoss === true
+        this.logger = new ActivityLog()
     }
 
     fightBattle(heroes) {
         const battle = new Battle(heroes, this.monsters)
+        battle.setLogger(this.logger)
         battle.fight()
 
         this.battleStatus = battle.result.status === "victory" ? "cleared" : "died"
@@ -63,6 +66,10 @@ class DungeonRoom {
                 </div>
             </div>
         )
+    }
+
+    setLogger(logger) {
+        this.logger = logger
     }
 }
 

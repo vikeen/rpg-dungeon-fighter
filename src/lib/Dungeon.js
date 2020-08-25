@@ -1,4 +1,7 @@
 import _ from 'lodash'
+import { createNanoEvents } from 'nanoevents'
+
+import ActivityLog from "./ActivityLog";
 
 class Dungeon {
     static DEFAULT_CHARACTER_STATS = {
@@ -6,8 +9,10 @@ class Dungeon {
         kills: 0
     }
 
-    constructor(rooms) {
+    constructor(heroes, rooms) {
         this.rooms = rooms
+        this.heroes = heroes
+        this.monsters = _(this.rooms).map(r => r.monsters).flatten().value()
         this.results = {}
         this.stats = {
             heroDamage: 0,
@@ -18,11 +23,6 @@ class Dungeon {
             byMonster: {},
             byRoom: []
         }
-    }
-
-    embark(heroes) {
-        this.heroes = heroes
-        this.monsters = _(this.rooms).map(r => r.monsters).flatten().value()
 
         this.heroes.forEach(hero => {
             this.stats.byHero[hero.uuid] = {...Dungeon.DEFAULT_CHARACTER_STATS}
@@ -32,6 +32,12 @@ class Dungeon {
             this.stats.byMonster[monster.uuid] = {...Dungeon.DEFAULT_CHARACTER_STATS}
         })
 
+        this.emitter = createNanoEvents()
+        this.eventListeners = []
+        this.initActivityLogger()
+    }
+
+    embark() {
         const clearedBattles = this.rooms.map((room) => {
             if (this.heroesAreAlive()) {
                 return room.fightBattle(this.heroes)
@@ -39,6 +45,8 @@ class Dungeon {
         }).filter(Boolean)
 
         this.collectStatsFromBattles(clearedBattles)
+        this.emitter.emit('end')
+        this.teardown()
     }
 
     collectStatsFromBattles(battles) {
@@ -71,6 +79,22 @@ class Dungeon {
 
     heroesAreAlive() {
         return this.heroes.some(h => h.isAlive())
+    }
+
+    initActivityLogger() {
+        this.logger = new ActivityLog()
+        this.heroes.forEach(h => h.setLogger(this.logger))
+        this.monsters.forEach(m => m.setLogger(this.logger))
+        this.rooms.forEach(r => r.setLogger(this.logger))
+    }
+
+    on(eventKey, cb) {
+        const listener = this.emitter.on(eventKey, cb)
+        this.eventListeners.push(listener)
+    }
+
+    teardown() {
+        this.eventListeners.forEach(eventListener => eventListener())
     }
 }
 

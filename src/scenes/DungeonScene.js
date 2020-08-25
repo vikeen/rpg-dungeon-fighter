@@ -9,9 +9,10 @@ const DungeonScene = ({heroes, dungeon, start}) => {
     useEffect(() => {
         if (start && !embarking) {
             setEmbarking(true)
-            dungeon.embark(heroes)
+            dungeon.embark()
             setEmbarking(false)
             setResults(dungeon.results)
+            dungeon.logger.printToConsole()
         }
     }, [start])
 

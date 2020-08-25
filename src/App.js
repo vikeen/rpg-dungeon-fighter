@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import "bootstrap/dist/css/bootstrap.min.css"
 import "rpg-awesome/css/rpg-awesome.min.css"
 
@@ -21,12 +21,12 @@ const styles = {
 
 const App = () => {
     const [start, setStart] = useState(false)
-
-    const heroes = [
+    const [complete, setComplete] = useState(false)
+    const [heroes, setHeroes] = useState([
         new Knight(),
         new Mage(),
-    ]
-    const dungeon = new Dungeon([
+    ])
+    const [dungeon, setDungeon] = useState(new Dungeon(heroes, [
         new DungeonRoom([new Goblin()]),
         new DungeonRoom([new Goblin(), new Goblin()]),
         new DungeonRoom([new Goblin(), new Goblin()]),
@@ -34,7 +34,14 @@ const App = () => {
         new DungeonRoom([new GoblinElite()], {
             isBoss: true
         }),
-    ])
+    ]))
+    const [] = useState(null)
+
+    useEffect(() => {
+        dungeon.on('end', () => {
+            setComplete(true)
+        })
+    }, [])
 
     const handleEmbarkOnDungeonClick = () => {
         setStart(true)
@@ -55,6 +62,10 @@ const App = () => {
                     </button>
                 </div>
             </nav>
+            <div>
+                <h3>Activity Log</h3>
+                {complete && dungeon.logger.render()}
+            </div>
         </div>
     );
 }

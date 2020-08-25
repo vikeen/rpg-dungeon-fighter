@@ -1,9 +1,11 @@
 import React from 'react'
 import {v4 as uuidv4} from 'uuid'
+import ActivityLog from "./ActivityLog";
 
 class BaseCharacter {
     constructor() {
         this.uuid = uuidv4()
+        this.logger = new ActivityLog()
     }
 
     isAlive = () => {
@@ -11,7 +13,7 @@ class BaseCharacter {
     }
 
     attack = (target) => {
-        console.debug(`${this.name} attacks ${target.name} for ${this.damage} damage`)
+        this.logger.debug(`${this.name} attacks ${target.name} for ${this.damage} damage`)
         target.sufferAttack(this.damage)
 
         return {
@@ -24,10 +26,10 @@ class BaseCharacter {
 
     sufferAttack = (damage) => {
         this.currentHp = this.currentHp - damage
-        console.debug(`${this.name} suffers ${damage} damage (${this.currentHp} remaining)`)
+        this.logger.debug(`${this.name} suffers ${damage} damage (${this.currentHp} remaining)`)
 
         if (this.currentHp <= 0) {
-            console.debug(`${this.name} has died`)
+            this.logger.debug(`${this.name} has died`)
         }
 
     }
@@ -36,6 +38,10 @@ class BaseCharacter {
         this.maxHp = hp
         this.currentHp = hp
         return this
+    }
+
+    setLogger(logger) {
+        this.logger = logger
     }
 }
 

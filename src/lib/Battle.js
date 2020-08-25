@@ -1,3 +1,5 @@
+import ActivityLog from "./ActivityLog";
+
 class Battle {
     static DEFAULT_CHARACTER_STATS = {
         damage: 0,
@@ -15,6 +17,7 @@ class Battle {
             byHero: {},
             byMonster: {}
         }
+        this.logger = new ActivityLog()
 
         heroes.forEach(hero => {
             this.stats.byHero[hero.uuid] = {...Battle.DEFAULT_CHARACTER_STATS}
@@ -26,9 +29,9 @@ class Battle {
     }
 
     fight() {
-        console.debug("Starting battle")
-        console.debug("Heroes:", this.heroes)
-        console.debug("Monsters:", this.monsters)
+        this.logger.debug("Starting battle")
+        this.logger.debug("Heroes:", this.heroes)
+        this.logger.debug("Monsters:", this.monsters)
 
         while (this.heroesAreAlive() && this.monstersAreAlive()) {
             // TODO: should alternate attacks between party members, not always the first character
@@ -50,7 +53,7 @@ class Battle {
             status: this.heroesAreAlive() ? "victory" : "defeat"
         }
 
-        console.debug("Battle results:", this.result)
+        this.logger.debug("Battle results:", this.result)
     }
 
     heroesAreAlive() {
@@ -95,6 +98,10 @@ class Battle {
                 this.stats.byMonster[monsterAttack.attacker.uuid].kills += 1
             }
         }
+    }
+
+    setLogger(logger) {
+        this.logger = logger
     }
 }
 

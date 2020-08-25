@@ -11,9 +11,9 @@ test('embark on dungeon with two battles and where the heroes are victorious', (
         new DungeonRoom([new Goblin()]),
         new DungeonRoom([new Goblin()]),
     ]
-    const dungeon = new Dungeon(rooms)
+    const dungeon = new Dungeon(heroes, rooms)
 
-    dungeon.embark(heroes)
+    dungeon.embark()
 
     expect(dungeon.results).toEqual(expect.objectContaining({
         heroesAreAlive: true,
@@ -29,9 +29,9 @@ test('embark on a dungeon where the heroes are defeated', () => {
         new DungeonRoom([new Goblin()]),
         new DungeonRoom([new DragonKing()]),
     ]
-    const dungeon = new Dungeon(rooms)
+    const dungeon = new Dungeon(heroes, rooms)
 
-    dungeon.embark(heroes)
+    dungeon.embark()
 
     expect(dungeon.results).toEqual(expect.objectContaining({
         heroesAreAlive: false,
@@ -47,9 +47,9 @@ test('embark on a dungeon where the one hero dies, but another hero survives', (
         new DungeonRoom([new Goblin(), new Goblin(), new Goblin()]), // knight will die here
         new DungeonRoom([new Goblin()]),
     ]
-    const dungeon = new Dungeon(rooms)
+    const dungeon = new Dungeon([injuredKnight, mage], rooms)
 
-    dungeon.embark([injuredKnight, mage])
+    dungeon.embark()
 
     expect(injuredKnight.isAlive()).toBe(false)
     expect(mage.isAlive()).toBe(true)
@@ -66,11 +66,10 @@ test('embark on a dungeon where the heroes are slowly worn down and die', () => 
         new DungeonRoom([new Goblin(), new Goblin(), new Goblin(), new Goblin()]),
         new DungeonRoom([new Goblin(), new Goblin(), new Goblin(), new Goblin()]),
     ]
-    const dungeon = new Dungeon(rooms)
+    const dungeon = new Dungeon(heroes, rooms)
 
-    dungeon.embark(heroes)
+    dungeon.embark()
 
-    console.log(dungeon.stats.byRoom)
     expect(dungeon.stats.byRoom[0]).toEqual(expect.objectContaining(
         {
             heroDamage: 8,
@@ -108,9 +107,9 @@ test('collect stats for each dungeon room battle and the dungeon total', () => {
         new DungeonRoom([new Goblin()]),
         new DungeonRoom([new Goblin(), new Goblin()]),
     ]
-    const dungeon = new Dungeon(rooms)
+    const dungeon = new Dungeon(heroes, rooms)
 
-    dungeon.embark(heroes)
+    dungeon.embark()
 
     expect(dungeon.stats).toEqual(expect.objectContaining({
         heroDamage: 24,
@@ -142,9 +141,9 @@ test('breakdown damage totals by hero and monster', () => {
     const rooms = [
         new DungeonRoom([goblin1, goblin2])
     ]
-    const dungeon = new Dungeon(rooms)
+    const dungeon = new Dungeon([injuredKnight, mage], rooms)
 
-    dungeon.embark([injuredKnight, mage])
+    dungeon.embark()
 
     expect(dungeon.stats.byHero).toEqual({
         [injuredKnight.uuid]: {
@@ -176,9 +175,9 @@ test('should marks rooms after heroes death as unexplored', () => {
         new DungeonRoom([new Goblin()]),
     ]
 
-    const dungeon = new Dungeon(rooms)
+    const dungeon = new Dungeon(heroes, rooms)
 
-    dungeon.embark(heroes)
+    dungeon.embark()
 
     expect(rooms[0].battleStatus).toEqual("cleared")
     expect(rooms[1].battleStatus).toEqual("died")

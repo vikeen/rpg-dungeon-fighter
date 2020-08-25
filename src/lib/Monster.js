@@ -52,7 +52,8 @@ class Monster extends BaseCharacter {
                  key={this.uuid}
                  style={{
                      height: size,
-                     margin: -5,
+                     marginLeft: -5,
+                     marginRight: -5,
                      transform: 'scaleX(-1)',
                      opacity: this.isAlive() ? 1 : 0.5
                  }}

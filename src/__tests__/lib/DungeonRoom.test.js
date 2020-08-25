@@ -2,8 +2,6 @@ import Knight from "../../heroes/Knight/Knight";
 import Goblin from "../../monsters/Goblin/Goblin";
 import DungeonRoom from "../../lib/DungeonRoom";
 import DragonKing from "../../monsters/Dragon King/DragonKing";
-import Mage from "../../heroes/Mage/Mage";
-import Dungeon from "../../lib/Dungeon";
 
 test('should mark the room as unexplored if no battle has taken place', () => {
     const room = new DungeonRoom([new Goblin()])
