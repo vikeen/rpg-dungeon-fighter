@@ -45,4 +45,8 @@ class BaseCharacter {
     }
 }
 
+BaseCharacter.prototype.toString = function () {
+    return this.name
+}
+
 export default BaseCharacter
