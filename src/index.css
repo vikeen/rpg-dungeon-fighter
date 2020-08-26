@@ -7,3 +7,8 @@ html, body {
     min-width: 100vh;
     min-height: 100vh;
 }
+
+form .form-group.required label:after {
+    color: red;
+    content: " *";
+}
