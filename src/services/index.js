@@ -7,7 +7,14 @@ const apiUrl = (path) => {
 const Services = {
     auth: {
         register(payload) {
-            return axios.post(apiUrl('/auth/register'), payload).then((response) => {
+            return axios.post(apiUrl('/auth/register'), payload)
+                .then((response) => {
+                    console.log(response)
+                })
+        },
+        login(username, password) {
+            const payload = {username, password}
+            return axios.post(apiUrl('/auth/login'), payload).then((response) => {
                 console.log(response)
             })
         }

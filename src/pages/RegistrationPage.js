@@ -1,14 +1,10 @@
 import React, {useState} from "react";
 import Services from "../services";
+import InputFieldError from "../components/InputFieldError";
 
 const RegistrationPage = () => {
-    const [user, setUser] = useState({
-        username: 'vikeen',
-        firstName: 'John',
-        lastName: 'Rake',
-        email: 'john.rake12@gmail.com',
-        password: '11aaAAAa',
-    })
+    const [user, setUser] = useState({})
+    const [errors, setErrors] = useState({})
 
     const handleChange = (e) => {
         setUser({
@@ -17,17 +13,20 @@ const RegistrationPage = () => {
         })
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
-        Services.auth.register(user).then(() => {
-
-        })
-        console.log(user)
+        try {
+            await Services.auth.register(user)
+            window.location = "/"
+        } catch (e) {
+            setErrors(e.response.data.errors)
+        }
     }
 
     return (
         <div className="container" style={{maxWidth: 800}}>
+            <h1>Create an Account</h1>
             <form onSubmit={handleSubmit}>
                 <div className="form-group required">
                     <label htmlFor="username">Username</label>
@@ -35,9 +34,10 @@ const RegistrationPage = () => {
                         <div className="input-group-prepend">
                             <div className="input-group-text">@</div>
                         </div>
-                        <input type="text" className="form-control" id="username" placeholder="Username"
+                        <input type="text" className="form-control" id="username"
                                name="username" onChange={handleChange}
                         />
+                        <InputFieldError errors={errors} fieldId={"username"}/>
                     </div>
                 </div>
                 <div className="row">
@@ -46,12 +46,14 @@ const RegistrationPage = () => {
                         <input type="text" className="form-control" id="firstName"
                                name="firstName" onChange={handleChange}
                         />
+                        <InputFieldError errors={errors} fieldId={"firstName"}/>
                     </div>
                     <div className="col form-group required">
                         <label htmlFor="lastName">Last name</label>
                         <input type="text" className="form-control" id="lastName"
                                name="lastName" onChange={handleChange}
                         />
+                        <InputFieldError errors={errors} fieldId={"lastName"}/>
                     </div>
                 </div>
                 <div className="form-group required">
@@ -59,18 +61,21 @@ const RegistrationPage = () => {
                     <input type="email" className="form-control" id="email"
                            name="email" onChange={handleChange}
                     />
+                    <InputFieldError errors={errors} fieldId={"email"}/>
                 </div>
                 <div className="form-group required">
                     <label htmlFor="password">Password</label>
                     <input type="password" className="form-control" id="password"
                            name="password" onChange={handleChange}
                     />
+                    <InputFieldError errors={errors} fieldId={"password"}/>
                 </div>
                 <div className="form-group required">
-                    <label htmlFor="passwordConfirmation">Password</label>
+                    <label htmlFor="passwordConfirmation">Confirm Password</label>
                     <input type="password" className="form-control" id="passwordConfirmation"
                            name="passwordConfirmation" onChange={handleChange}
                     />
+                    <InputFieldError errors={errors} fieldId={"passwordConfirmation"}/>
                 </div>
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>
